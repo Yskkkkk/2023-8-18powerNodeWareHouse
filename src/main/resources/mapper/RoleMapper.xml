@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysk.mapper.RoleMapper">
+
+<!--查询所有角色-->
+    <select id="findAllRole" resultType="com.ysk.entity.Role">
+        select * from role where role_state = 1
+    </select>
+
+<!--//根据用户id查询用户分配的所有角色-->
+    <select id="findUserRoleByUid" resultType="com.ysk.entity.Role">
+        select t2.* from user_role t1, role t2
+        where t1.role_id = t2.role_id
+          and t2.role_state = 1 and t1.user_id = #{userId}
+    </select>
+
+<!--    //根据角色名查询角色id的方法-->
+    <select id="findRoleIdByName" resultType="java.lang.Integer">
+        select role_id from role where role_name = #{roleName}
+    </select>
+
+</mapper>

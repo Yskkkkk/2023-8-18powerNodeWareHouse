@@ -19,7 +19,29 @@
         update user_info set user_state = #{userState} where user_id = #{userId};
     </update>
 
-<!--    //根据账号查询用户信息-->
+<!--    //根据用户ids修改用户删除状态-->
+    <update id="setIdsDeleteByUids">
+        update user_info set is_delete = 1 where user_id in
+        <foreach collection="list" open="(" close=")" separator="," item="userId">
+            #{userId}
+        </foreach>
+    </update>
+
+<!--    //根据用户id修改用户信息-->
+    <update id="setUserNameByUid">
+        update user_info
+        set
+        user_name = #{userName}, update_by = #{updateBy},update_time = now()
+        where user_id = #{userId}
+    </update>
+<!--重置密码    -->
+    <update id="setPwdByUid">
+        update user_info
+        set
+        user_pwd = #{password} where user_id = #{userId}
+    </update>
+
+    <!--    //根据账号查询用户信息-->
     <select id="findUserByCode" resultType="user">
         select * from user_info where user_code = #{userCode} and is_delete = 0
     </select>

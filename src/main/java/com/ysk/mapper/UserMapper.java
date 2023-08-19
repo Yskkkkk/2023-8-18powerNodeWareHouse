@@ -25,4 +25,13 @@ public interface UserMapper {
 
     //根据用户id修改用户状态
     public int setUserStateByID(Integer userId,String userState);
+
+    //根据用户ids修改用户删除状态
+    public int setIdsDeleteByUids(List<Integer> userIdList);
+
+    //根据用户id修改用户信息
+    public int setUserNameByUid(User user);
+
+    //根据用户id重置密码
+    public int setPwdByUid(Integer userId,String password);
 }
