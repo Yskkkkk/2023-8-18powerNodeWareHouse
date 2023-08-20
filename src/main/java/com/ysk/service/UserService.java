@@ -31,4 +31,5 @@ public interface UserService  {
 
     //根据用户id修改用户密码的业务
     public Result setPasswordByUid(Integer userId);
+
 }

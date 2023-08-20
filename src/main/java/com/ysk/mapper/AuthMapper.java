@@ -14,8 +14,12 @@ import java.util.List;
 @Mapper
 public interface AuthMapper  {
 
+   //查询所有正常状态的权限(菜单的方法)
+    public List<Auth> getAllAuth();
+
     //根据userId查询用户权限下的所有菜单的方法
-   public List<Auth> findAuthByUid(Integer userId);
+    public List<Auth> findAuthByUid(Integer userId);
+
 }
 
 

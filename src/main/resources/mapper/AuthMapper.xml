@@ -11,4 +11,9 @@
         where t1.role_id = t2.role_id and t2.auth_id = t3.auth_id
         and t3.auth_state = 1 and t3.auth_type != 3 and t1.user_id = #{userId}
     </select>
+<!--    //查询所有正常状态的权限(菜单的方法)-->
+    <select id="getAllAuth" resultType="com.ysk.entity.Auth">
+        select * from auth_info where auth_state = 1
+    </select>
+
 </mapper>

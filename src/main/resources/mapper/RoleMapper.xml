@@ -3,8 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysk.mapper.RoleMapper">
+<!--    //根据角色id修改角色状态的方法-->
+    <update id="updateRoleState">
+        update role set
+        role_state = #{roleState}, update_by = #{updateBy}, update_time = #{updateTime}
+        where role_id = #{roleId}
+    </update>
 
-<!--查询所有角色-->
+<!--        //根据角色id修改角色描述的方法
+    public int updateDescById(Role role);-->
+    <update id="updateDescById">
+        update role
+        set role_desc = #{roleDesc},update_by = #{updateBy}, update_time = now()
+        where role_id = #{roleId}
+    </update>
+
+    <!--        //根据角色id删除角色的方法
+        public int deleteRoleById(Integer roleId);-->
+    <delete id="deleteRoleById">
+        delete from role where role_id = #{roleId}
+    </delete>
+
+    <!--查询所有角色-->
     <select id="findAllRole" resultType="com.ysk.entity.Role">
         select * from role where role_state = 1
     </select>
@@ -21,4 +41,58 @@
         select role_id from role where role_name = #{roleName}
     </select>
 
+<!--    //查询角色行数的方法-->
+    <select id="findRoleRowCount" resultType="java.lang.Integer">
+        select count(*) from role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and role_name like concat('%', #{roleName}, '%')
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                and role_code like concat('%', #{roleCode}, '%')
+            </if>
+            <if test="roleState != null and roleState != ''">
+                and role_state = #{roleState}
+            </if>
+        </where>
+    </select>
+
+<!--    //分页查询角色的方法-->
+    <select id="findRolePage" resultType="com.ysk.entity.Role">
+        select t1.*, t2.user_code getCode from role t1, user_info t2
+        <where>
+            and t1.create_by = t2.user_id
+            <if test="role.roleName != null and role.roleName != ''">
+                and t1.role_name like concat('%', #{role.roleName}, '%')
+            </if>
+            <if test="role.roleCode != null and role.roleCode != ''">
+                and t1.role_code like concat('%', #{role.roleCode}, '%')
+            </if>
+            <if test="role.roleState != null and role.roleState != ''">
+                and t1.role_state = #{role.roleState}
+            </if>
+            order by t1.create_time desc
+            limit #{page.limitIndex}, #{page.pageSize}
+        </where>
+    </select>
+
+    <!--
+      //根据角色名称或者角色代码查询角色的方法
+      public Role findRoleByNameOrCode(String roleName, String roleCode);
+      param1指第一个变量 param指第二个变量
+    -->
+    <select id="findRoleByNameOrCode" resultType="com.ysk.entity.Role">
+        select * from role where role_name = #{param1} or role_code = #{param2}
+    </select>
+
+    <!--
+ //添加角色的方法
+ public int insertRole(Role role);
+-->
+    <insert id="insertRole">
+        insert into role
+            (role_name, role_code, role_desc, role_state, create_by, create_time)
+        values
+            (#{roleName}, #{roleCode}, #{roleDesc}, 0, #{createBy}, now())
+    </insert>
 </mapper>

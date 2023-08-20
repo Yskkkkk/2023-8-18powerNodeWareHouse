@@ -10,5 +10,10 @@ import java.util.List;
 * @createDate 2023-08-17 17:11:30
 */
 public interface AuthService {
+
+   //根据用户角色id查询用户权限下的所有菜单的方法
    public List<Auth> authTreeByUid(Integer userId);
+
+   //查询整个权限(菜单)树的业务方法
+   public List<Auth> getAllAuthTree();
 }

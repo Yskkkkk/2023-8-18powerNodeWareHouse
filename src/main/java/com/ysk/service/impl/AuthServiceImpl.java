@@ -5,6 +5,8 @@ import com.ysk.entity.Auth;
 import com.ysk.mapper.AuthMapper;
 import com.ysk.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,8 @@ import java.util.List;
 * @description 针对表【auth_info(权限表)】的数据库操作Service实现
 * @createDate 2023-08-17 17:11:30
 */
+//指定缓存名称 一般是标识@CacheConfig注解类的全路径
+@CacheConfig(cacheNames ="com.ysk.service.impl.AuthServiceImpl" )
 @Service
 public class AuthServiceImpl implements AuthService{
 
@@ -50,6 +54,28 @@ public class AuthServiceImpl implements AuthService{
             //向redis中缓存
             redisTemplate.opsForValue().set("authTree:" + userId,JSON.toJSONString(authTreeList));
             return authTreeList;
+    }
+
+
+    /*
+    查询所有权限菜单树的业务方法
+     */
+    //查询方法上标注@Cacheable注解并指定缓存的键
+    @Cacheable(key = "'all:authTree'")
+    @Override
+    public List<Auth> getAllAuthTree() {
+        String allAuthTreeJson = redisTemplate.opsForValue().get("all:authTree");
+        if(StringUtils.hasText(allAuthTreeJson)){//redis中查到缓存
+            //将json串转回整个权限(菜单)树List<Auth>并返回
+            List<Auth> allAuthTreeList = JSON.parseArray(allAuthTreeJson, Auth.class);
+            return allAuthTreeList;
+        }
+        //redis中没有查到缓存,从数据库表中查询所有权限(菜单)
+        List<Auth> allAuthList = authMapper.getAllAuth();
+
+        //将所有权限(菜单)List<Auth>转成整个权限(菜单)树List<Auth>
+        List<Auth> authTreeList = allAuthToAuthTree(allAuthList, 0);
+        return authTreeList;
     }
 
     //将所有权限(菜单)转成权限(菜单)树的递归算法

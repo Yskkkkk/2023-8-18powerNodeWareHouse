@@ -68,8 +68,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="UserRole" />
-                  <option name="tableName" value="user_role" />
+                  <option name="className" value="RoleAuth" />
+                  <option name="tableName" value="role_auth" />
                 </TableUIInfo>
               </list>
             </option>
