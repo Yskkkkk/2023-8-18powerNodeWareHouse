@@ -39,7 +39,7 @@ public class LoginCheckFilter implements Filter {
         urlList.add("/captcha/captchaImage");
         urlList.add("/login");
         urlList.add("/logout");
-        if(urlList.contains(url)){//白名单请求
+        if(urlList.contains(url) || url.contains("/img/upload")){//白名单请求
             filterChain.doFilter(request, response);
             return;
         }
