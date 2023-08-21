@@ -1,7 +1,9 @@
 package com.ysk.mapper;
 
 import com.ysk.entity.Place;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author admin
@@ -9,7 +11,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-08-20 19:09:02
 * @Entity com.ysk.entity.Place
 */
-public interface PlaceMapper extends BaseMapper<Place> {
+@Mapper
+public interface PlaceMapper {
+
+    //查询所有产地
+    public List<Place> findAllPlace();
 
 }
 

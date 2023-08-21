@@ -1,7 +1,9 @@
 package com.ysk.mapper;
 
 import com.ysk.entity.Supply;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author admin
@@ -9,7 +11,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-08-20 19:08:18
 * @Entity com.ysk.entity.Supply
 */
-public interface SupplyMapper extends BaseMapper<Supply> {
+@Mapper
+public interface SupplyMapper  {
+
+    //查询所有供应商
+    public List<Supply> findAllSupply();
 
 }
 

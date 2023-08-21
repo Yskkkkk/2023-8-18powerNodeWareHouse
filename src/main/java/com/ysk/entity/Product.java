@@ -141,14 +141,14 @@ public class Product implements Serializable {
     /**
      * 
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "product_date")
     private Date productDate;
 
     /**
      * 
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "supp_date")
     private Date suppDate;
 

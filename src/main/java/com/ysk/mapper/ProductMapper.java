@@ -1,5 +1,6 @@
 package com.ysk.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ysk.entity.Product;
 import com.ysk.page.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,13 +15,24 @@ import java.util.List;
 * @Entity com.ysk.entity.Product
 */
 @Mapper
-public interface ProductMapper  {
+public interface ProductMapper extends BaseMapper<Product> {
 
     //查询商品行数的方法
     public Integer findProductRowCount(Product product);
 
     //分页查询商品的方法
     public List<Product> findProductPage(@Param("page") Page page, @Param("product")Product product);
+
+
+    //添加商品的方法
+    public int insertProduct(Product product);
+
+
+    //根据商品id修改商品的上下架状态
+    public int updateStateById(Product product);
+
+    //根据商品id修改商品的方法
+    public int updateProductById(Product product);
 }
 
 

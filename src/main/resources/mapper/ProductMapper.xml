@@ -3,8 +3,44 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysk.mapper.ProductMapper">
+<!--        //添加商品的方法
+    public int insertProduct(Product product);-->
+    <insert id="insertProduct">
+        insert into product values
+            (
+                null, #{storeId}, #{brandId}, #{productName}, #{productNum},
+                #{productInvent}, #{typeId}, #{supplyId}, #{placeId}, #{unitId},
+                #{introduce}, 0, #{inPrice}, #{salePrice}, #{memPrice}, now(),
+                null, #{createBy}, null, #{imgs}, #{productDate}, #{suppDate}
+            )
+    </insert>
 
-<!--    //查询商品行数的方法-->
+    <!--
+      //根据商品id修改商品的上下架状态
+      public int updateStateById(Product product)
+    -->
+    <update id="updateStateById">
+        update product set up_down_state = #{upDownState}
+        where product_id = #{productId}
+    </update>
+    <!--
+          //根据商品id修改商品的方法
+          public int updateProductById(Product product)
+        -->
+    <update id="updateProductById">
+        <!--商品上下架状态、创建时间、创建者字段值不用改-->
+        update product set store_id = #{storeId}, brand_id = #{brandId},
+        product_name = #{productName}, product_num = #{productNum},
+        product_invent = #{productInvent}, type_id = #{typeId},
+        supply_id = #{supplyId}, place_id = #{placeId}, unit_id = #{unitId},
+        introduce = #{introduce}, in_price = #{inPrice}, sale_price = #{salePrice},
+        mem_price = #{memPrice}, update_time = now(), update_by = #{updateBy},
+        imgs = #{imgs}, product_date = #{productDate}, supp_date = #{suppDate}
+        where product_id = #{productId}
+    </update>
+
+
+    <!--    //查询商品行数的方法-->
     <select id="findProductRowCount" resultType="java.lang.Integer">
         select  count(*)
         from product t1,brand t2,product_type t3, supply t4, place t5

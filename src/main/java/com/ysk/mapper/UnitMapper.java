@@ -1,7 +1,9 @@
 package com.ysk.mapper;
 
 import com.ysk.entity.Unit;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author admin
@@ -9,8 +11,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-08-20 19:09:14
 * @Entity com.ysk.entity.Unit
 */
-public interface UnitMapper extends BaseMapper<Unit> {
+@Mapper
+public interface UnitMapper  {
 
+    //查询所有单位的方法
+    public List<Unit> findAllUnit();
 }
 
 
