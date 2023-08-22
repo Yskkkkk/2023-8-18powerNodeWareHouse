@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 采购单
@@ -48,6 +50,7 @@ public class BuyList implements Serializable {
     /**
      * 
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "buy_time")
     private Date buyTime;
 
@@ -83,4 +86,14 @@ public class BuyList implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    //---------------追加属性---------------------------
+
+    private String productName;//商品名称
+
+    private String storeName;//仓库名称
+
+    private String startTime;//搜索起始时间
+
+    private String endTime;//搜索结束时间
 }

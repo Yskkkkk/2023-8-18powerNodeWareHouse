@@ -68,8 +68,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="OutStore" />
-                  <option name="tableName" value="out_store" />
+                  <option name="className" value="InStore" />
+                  <option name="tableName" value="in_store" />
                 </TableUIInfo>
               </list>
             </option>

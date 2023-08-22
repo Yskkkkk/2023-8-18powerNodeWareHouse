@@ -2,6 +2,7 @@ package com.ysk.service;
 
 import com.ysk.entity.BuyList;
 import com.ysk.entity.Result;
+import com.ysk.page.Page;
 
 /**
 * @author admin
@@ -11,4 +12,13 @@ import com.ysk.entity.Result;
 public interface BuyListService  {
     //添加采购单的业务方法
     public Result savePurchase(BuyList purchase);
+
+    //删除采购单的业务方法
+    public Result deletePurchaseById(Integer buyId);
+
+    //分页查询采购单的业务方法
+    public Page queryPurchasePage(Page page,BuyList buyList);
+
+    //修改采购单的业务方法
+    public Result updatePurchase(BuyList buyList);
 }

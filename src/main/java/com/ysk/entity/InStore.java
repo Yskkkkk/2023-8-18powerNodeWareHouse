@@ -12,23 +12,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 出库单
- * @TableName out_store
+ * 入库单
+ * @TableName in_store
  */
-@TableName(value ="out_store")
+@TableName(value ="in_store")
 @Data
-public class OutStore implements Serializable {
+public class InStore implements Serializable {
     /**
      * 
      */
-    @TableId(value = "outs_id", type = IdType.AUTO)
-    private Integer outsId;
-
-    /**
-     * 
-     */
-    @TableField(value = "product_id")
-    private Integer productId;
+    @TableId(value = "ins_id", type = IdType.AUTO)
+    private Integer insId;
 
     /**
      * 
@@ -39,20 +33,14 @@ public class OutStore implements Serializable {
     /**
      * 
      */
-    @TableField(value = "tally_id")
-    private Integer tallyId;
+    @TableField(value = "product_id")
+    private Integer productId;
 
     /**
      * 
      */
-    @TableField(value = "out_price")
-    private BigDecimal outPrice;
-
-    /**
-     * 
-     */
-    @TableField(value = "out_num")
-    private Integer outNum;
+    @TableField(value = "in_num")
+    private Integer inNum;
 
     /**
      * 
@@ -63,20 +51,20 @@ public class OutStore implements Serializable {
     /**
      * 
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(value = "create_time")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
      * 0 否 1 是
      */
-    @TableField(value = "is_out")
-    private String isOut;
+    @TableField(value = "is_in")
+    private String isIn;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    //------------------追加的属性-------------------------
+    //-----------------追加的属性--------------------
 
     private String productName;//商品名称
 
@@ -86,5 +74,7 @@ public class OutStore implements Serializable {
 
     private String storeName;//仓库名称
 
-    private String userCode;//创建出库单的用户的名称
+    private String userCode;//创建入库单的用户的名称
+
+    private BigDecimal inPrice;//商品入库价格
 }

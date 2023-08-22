@@ -1,6 +1,6 @@
 package com.ysk;
 
-import com.ysk.service.RoleService;
+import com.ysk.service.BuyListService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,10 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ApplicationTests {
 
     @Autowired
-    private RoleService roleService;
+    private BuyListService roleService;
     @Test
     void contextLoads() {
-        roleService.deleteRole(17);
+        roleService.deletePurchaseById(48);
 
     }
 

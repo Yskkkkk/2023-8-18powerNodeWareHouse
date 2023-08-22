@@ -33,6 +33,15 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     //根据商品id修改商品的方法
     public int updateProductById(Product product);
+
+    //根据商品id增加商品库存的方法
+    public int addInventById(Integer productId, Integer invent);
+
+    //根据商品id查询商品的方法
+    public Product selectProductById(Integer productId);
+
+    //根据商品id减少商品库存的方法
+    public int reduceInventById(Integer productId, Integer invent);
 }
 
 

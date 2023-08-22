@@ -1,16 +1,17 @@
 package com.ysk.controller;
 
-import com.ysk.entity.CurrentUser;
-import com.ysk.entity.OutStore;
-import com.ysk.entity.Result;
-import com.ysk.entity.WarehouseConstants;
+import com.ysk.entity.*;
+import com.ysk.page.Page;
 import com.ysk.service.OutStoreService;
+import com.ysk.service.StoreService;
 import com.ysk.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequestMapping("/outstore")
 @RestController
@@ -19,6 +20,9 @@ public class OutStoreController {
     //注入OutStoreService
     @Autowired
     private OutStoreService outStoreService;
+
+    @Autowired
+    private StoreService storeService;
 
     //注入TokenUtils
     @Autowired
@@ -44,6 +48,48 @@ public class OutStoreController {
         //执行业务
         Result result = outStoreService.saveOutStore(outStore);
 
+        //响应
+        return result;
+    }
+
+
+    /**
+     * 查询所有仓库的url接口/outstore/store-list
+     */
+    @RequestMapping("/store-list")
+    public Result storeList(){
+        //执行业务
+        List<Store> storeList = storeService.queryAllStore();
+        //响应
+        return Result.ok(storeList);
+    }
+
+    /**
+     * 分页查询出库单的url接口/outstore/outstore-page-list
+     *
+     * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
+     * 参数OutStore对象用于接收请求参数仓库id storeId、商品名称productName、
+     * 是否出库isOut、起止时间startTime和endTime;
+     *
+     * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
+     */
+    @RequestMapping("/outstore-page-list")
+    public Result outStorePageList(Page page, OutStore outStore){
+        //执行业务
+        page = outStoreService.outStorePage(page, outStore);
+        //响应
+        return Result.ok(page);
+    }
+
+    /**
+     * 确定出库的url接口/outstore/outstore-confirm
+     *
+     * @RequestBody OutStore outStore将请求传递的json数据封装到参数OutStore对象;
+     */
+    @RequestMapping("/outstore-confirm")
+    public Result confirmOutStore(@RequestBody OutStore outStore){
+        //执行业务
+        Result result = outStoreService.confirmOutStore(outStore);
         //响应
         return result;
     }

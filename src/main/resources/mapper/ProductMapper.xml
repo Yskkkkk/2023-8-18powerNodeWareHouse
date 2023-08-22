@@ -16,6 +16,16 @@
     </insert>
 
     <!--
+      //根据商品id增加商品库存的方法
+      public int addInventById(Integer productId, Integer invent)
+    -->
+    <insert id="addInventById">
+        update product set
+            product_invent = product_invent + #{param2}
+        where product_id = #{param1}
+    </insert>
+
+    <!--
       //根据商品id修改商品的上下架状态
       public int updateStateById(Product product)
     -->
@@ -127,5 +137,22 @@
         limit #{page.limitIndex},#{page.pageSize}
     </select>
 
+    <!--
+     //根据商品id查询商品的方法
+     public Product selectProductById(Integer productId)
+   -->
+    <select id="selectProductById" resultType="com.ysk.entity.Product">
+        select * from product where product_id = #{productId}
+    </select>
+
+    <!--
+  //根据商品id减少商品库存的方法
+  public int reduceInventById(Integer productId, Integer invent)
+-->
+    <insert id="reduceInventById">
+        update product set
+            product_invent = product_invent - #{param2}
+        where product_id = #{param1}
+    </insert>
 
 </mapper>
